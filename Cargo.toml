@@ -1,0 +1,14 @@
+[package]
+name = "sokuou"
+version = "0.1.0"
+description = "即応エンジン - 进度驱动的空间状态解析器，面向 Rust 应用开发者的动画引擎"
+authors = ["Takahashi Rinta <mc1586182829@outlook.com>"]
+license = "MIT"
+edition = "2021"
+repository = "https://github.com/GuitaristRin/Sokuou"
+homepage = "https://github.com/GuitaristRin/Sokuou"
+readme = "README.md"
+keywords = ["animation", "spring", "easing", "gui", "interactive"]
+categories = ["graphics", "gui"]
+
+[dependencies]
