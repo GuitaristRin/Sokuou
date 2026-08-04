@@ -11,4 +11,8 @@ readme = "README.md"
 keywords = ["animation", "spring", "easing", "gui", "interactive"]
 categories = ["graphics", "gui"]
 
+[lib]
+name = "sokuou"
+path = "mod.rs"
+
 [dependencies]
