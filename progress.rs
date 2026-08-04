@@ -1,4 +1,4 @@
-use crate::easing::Easing;
+use super::easing::Easing;
 
 /// 时长驱动的线性缓动值 [0.0, 1.0]，支持可中断。
 ///
