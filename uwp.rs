@@ -148,6 +148,7 @@ pub fn apply_uwp(t: f64, variant: &UwpEasing, mode: EasingMode) -> f64 {
 ///
 /// 与 `Progress` 结构对齐，但使用 UWP 缓动函数体系。
 /// 默认时长为 0.25s（Metro 风格），默认变体 Quadratic/EaseOut。
+#[derive(Debug, Clone, PartialEq)]
 pub struct MetroAnim {
     value: f64,
     target: f64,
