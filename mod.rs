@@ -21,9 +21,16 @@ pub use uwp::{apply_uwp, EasingMode, MetroAnim, UwpEasing};
 /// 将 progress [0.0, 1.0] 映射到任意值域 [from, to]。
 ///
 /// ```
-/// let alpha = map_range(spring.value(), 0.0, 1.0);
-/// let slide = map_range(spring.value(), screen_height, 0.0); // 从底部滑入
-/// let scale = map_range(spring.value(), 0.85, 1.0);          // 85% → 100%
+/// use sokuou::map_range;
+///
+/// // 同一进度值（例如弹簧动画的当前值）映射到不同视觉属性。
+/// let progress = 0.5_f64;
+/// let alpha = map_range(progress, 0.0, 1.0);   // 0.0 → 1.0
+/// let slide = map_range(progress, 100.0, 0.0); // 从底部滑入（值域可逆）
+/// let scale = map_range(progress, 0.85, 1.0);  // 85% → 100%
+/// assert_eq!(alpha, 0.5);
+/// assert_eq!(slide, 50.0);
+/// assert!((scale - 0.925).abs() < 1e-9);
 /// ```
 pub fn map_range(progress: f64, from: f64, to: f64) -> f64 {
     from + (to - from) * progress
