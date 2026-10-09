@@ -42,6 +42,7 @@ let width = map_range_clamped(sidebar.value(), 48.0, 200.0);
 
 - **正典** [docs/SOKUOU.md](docs/SOKUOU.md) —— 何为 Sokuou 动画、progress 之概念、调用之法、设计不变量。
 - **回流** [docs/BACKFLOW.md](docs/BACKFLOW.md) —— 自我迭代之制：发现缺陷、加入新曲线或新原语时，如何改进并回流本仓。
+- **守则** [AGENTS.md](AGENTS.md) · [CLAUDE.md](CLAUDE.md) —— 协作硬性规则与架构导览（代理与开发者入口）。
 - **历史** [docs/archive/](docs/archive/) —— 旧设计书与调用手册，仅供追溯，不作现行依据。
 
 ## License
