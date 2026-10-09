@@ -1,8 +1,8 @@
 // Sokuou Engine — 即応エンジン
-// 面向 Rust 应用开发者的动画引擎，进度驱动的空间状态解析器。
+// 进度驱动的空间状态解析器。原语是本仓唯一真源。
 //
-// 设计书：SOKUOU_ENGINE.md
-// 调用手册：SOKUOU_USAGE.md
+// 正典（何为动画 / progress / 调用之法）：docs/SOKUOU.md
+// 回流（自我迭代与升级之制）：docs/BACKFLOW.md
 
 pub mod animator;
 pub mod easing;

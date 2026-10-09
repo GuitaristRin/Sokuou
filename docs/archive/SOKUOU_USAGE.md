@@ -1,4 +1,7 @@
-﻿# Sokuou Engine 调用手册
+﻿# Sokuou Engine 调用手册（已归档）
+
+> **归档于 2026-10-09**：历史手册，API 可能已过时。
+> 现行正典：`docs/SOKUOU.md`；回流之制：`docs/BACKFLOW.md`。
 
 > 核心哲学：**动画不是播放，而是空间状态的连续解析。**
 > `state → progress [0.0, 1.0] → resolved spatial state → render`

@@ -1,4 +1,7 @@
-# Sokuou Engine 设计书
+# Sokuou Engine 设计书（已归档）
+
+> **归档于 2026-10-09**：历史设计书，API 与结构可能已过时。
+> 现行正典：`docs/SOKUOU.md`；回流之制：`docs/BACKFLOW.md`。
 
 > 即応エンジン — 进度驱动的空间状态解析器。
 >
