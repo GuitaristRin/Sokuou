@@ -4,7 +4,8 @@ use super::easing::Easing;
 ///
 /// 适用于透明度、颜色等不需要弹性的过渡。
 /// 位移/缩放等需要"自然感"的属性请用 SpringAnim。
-#[derive(Debug, Clone)]
+// PartialEq：调用方包装器（如 Kanesumi FlyoutTrack）需透传相等语义。
+#[derive(Debug, Clone, PartialEq)]
 pub struct Progress {
     value: f64,
     target: f64,
@@ -52,6 +53,16 @@ impl Progress {
         self.easing = easing;
     }
 
+    /// 总时长（秒），只读。换向入口读预设的配置复制到自身（如 Kanesumi `FlyoutTrack::retune_to`）。
+    pub fn duration(&self) -> f64 {
+        self.duration
+    }
+
+    /// 当前缓动，只读。换向入口读预设的配置复制到自身。
+    pub fn easing(&self) -> Easing {
+        self.easing
+    }
+
     /// 立即跳到指定值，无过渡。
     pub fn jump_to(&mut self, value: f64) {
         self.value = value;
@@ -86,5 +97,34 @@ impl Progress {
     /// 已到达目标时为 true，此帧无需 request_repaint。
     pub fn is_steady(&self) -> bool {
         self.elapsed >= self.duration
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn getters_reflect_configuration() {
+        let mut p = Progress::new(0.25);
+        assert_eq!(p.duration(), 0.25);
+        assert_eq!(p.easing(), Easing::EaseOutCubic);
+        p.set_duration(0.15);
+        p.set_easing(Easing::Linear);
+        assert_eq!(p.duration(), 0.15);
+        assert_eq!(p.easing(), Easing::Linear);
+        let q = Progress::with_easing(0.5, Easing::EaseInCubic);
+        assert_eq!(q.duration(), 0.5);
+        assert_eq!(q.easing(), Easing::EaseInCubic);
+    }
+
+    #[test]
+    fn partial_eq_distinguishes_state() {
+        let a = Progress::new(0.25);
+        let b = Progress::new(0.25);
+        assert_eq!(a, b);
+        let mut c = b.clone();
+        c.set_target(1.0);
+        assert_ne!(a, c);
     }
 }
