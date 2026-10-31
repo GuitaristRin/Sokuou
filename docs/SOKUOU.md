@@ -127,6 +127,10 @@ progress → 决定空间状态
 原则：主运动优先用弹簧；同一过渡之次要属性同源派生；独立定时过渡用时长驱动；凡 UWP 规格已定者，从其规格。
 非交互淡入可不用弹簧（`Progress` + `EaseOutCubic`）；需循环时，由宿主定义重复或换向策略，缓动可选 `EaseInOutCubic`，日常交互不推荐。
 
+正典 cubic-bezier(x1,y1,x2,y2) 与 UWP 缓动变体亦入 `Easing` 族（`Easing::Bezier` / `Easing::Uwp`，
+求值器 `bezier_y`）：曲线既入 `Progress`，调用方即不必自建时长驱动状态机——
+时间推进唯一由本仓 `Progress::update` 承担。
+
 ---
 
 ## Ⅳ · 调用之法

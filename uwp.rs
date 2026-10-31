@@ -15,7 +15,8 @@ pub enum EasingMode {
 }
 
 /// UWP 缓动函数变体。
-#[derive(Debug, Clone, PartialEq)]
+// Copy：载荷全为 Copy，`Easing::Uwp` 变体需要按值持有（参 easing.rs）。
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum UwpEasing {
     Quadratic,
     Cubic,

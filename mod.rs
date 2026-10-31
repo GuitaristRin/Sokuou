@@ -12,7 +12,8 @@ pub mod uwp;
 
 pub use animator::{Animation, Animator};
 pub use easing::{
-    ease_in_cubic, ease_in_out_cubic, ease_out_cubic, ease_out_quad, ease_out_quart, Easing,
+    bezier_y, ease_in_cubic, ease_in_out_cubic, ease_out_cubic, ease_out_quad, ease_out_quart,
+    Easing,
 };
 pub use progress::Progress;
 pub use spring::SpringAnim;
