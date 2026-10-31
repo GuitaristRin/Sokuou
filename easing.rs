@@ -1,3 +1,5 @@
+use super::uwp::{EasingMode, UwpEasing, apply_uwp};
+
 /// 缓动函数枚举。
 /// 只包含经过实际使用验证的函数；其余按需添加。
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -8,6 +10,10 @@ pub enum Easing {
     EaseOutQuart,
     EaseInCubic,
     EaseInOutCubic,
+    /// 正典 cubic-bezier(x1,y1,x2,y2)（出处见 `bezier_y`）。
+    Bezier([f32; 4]),
+    /// UWP 缓动变体 + 方向。转发 `apply_uwp`，与 `MetroAnim` 同源同值。
+    Uwp(UwpEasing, EasingMode),
 }
 
 impl Easing {
@@ -19,6 +25,8 @@ impl Easing {
             Easing::EaseOutQuart => ease_out_quart(t),
             Easing::EaseInCubic => ease_in_cubic(t),
             Easing::EaseInOutCubic => ease_in_out_cubic(t),
+            Easing::Bezier(c) => bezier_y(*c, t),
+            Easing::Uwp(v, m) => apply_uwp(t, v, *m),
         }
     }
 }
@@ -151,5 +159,35 @@ mod tests {
         // 开曲线前段快：t=0.5 时已过半；关曲线前段慢：t=0.5 未过半。
         assert!(bezier_y(OPEN, 0.5) > 0.5);
         assert!(bezier_y(CLOSE, 0.5) < 0.5);
+    }
+
+    #[test]
+    fn easing_bezier_arm_matches_evaluator() {
+        for &t in &[0.25_f64, 0.5, 0.75] {
+            assert_eq!(Easing::Bezier(OPEN).apply(t), bezier_y(OPEN, t));
+            assert_eq!(Easing::Bezier(CLOSE).apply(t), bezier_y(CLOSE, t));
+        }
+    }
+
+    #[test]
+    fn easing_uwp_arm_matches_apply_uwp() {
+        let cases = [
+            (UwpEasing::Cubic, EasingMode::EaseOut),
+            (UwpEasing::Quadratic, EasingMode::EaseOut),
+            (UwpEasing::Quartic, EasingMode::EaseInOut),
+        ];
+        for (v, m) in cases {
+            for t in [0.0_f64, 0.3, 0.5, 1.0] {
+                assert_eq!(Easing::Uwp(v, m).apply(t), apply_uwp(t, &v, m));
+            }
+        }
+    }
+
+    #[test]
+    fn easing_stays_copy() {
+        // Easing 须保持 Copy：Progress 按值持有与返回。
+        fn assert_copy<T: Copy>() {}
+        assert_copy::<Easing>();
+        assert_copy::<UwpEasing>();
     }
 }
